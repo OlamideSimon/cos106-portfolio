@@ -4,7 +4,7 @@ My term project for **COS 106: Introduction to Web Technologies** at MIVA Open U
 
 It's a responsive, multi-page website that works as my personal academic portfolio and a small student-management tool. It's written in plain **HTML, CSS and JavaScript**, with no frameworks, libraries or build step.
 
-- **Live site:** _added after deployment_
+- **Live site:** https://olamide-cos106.onrender.com
 - **Repository:** https://github.com/OlamideSimon/cos106-portfolio
 
 ## Pages

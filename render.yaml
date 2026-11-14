@@ -2,7 +2,7 @@
 services:
   - type: web
     runtime: static
-    name: olamide-cos106-portfolio
+    name: olamide-cos106
     branch: main
     buildCommand: echo "No build step. Plain HTML, CSS and JavaScript."
     staticPublishPath: .
