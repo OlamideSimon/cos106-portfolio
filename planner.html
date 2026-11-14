@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Academic Planner | Olamide Simon</title>
+  <meta name="description" content="An interactive academic planner: add coursework tasks, mark them as completed and delete them.">
+  <meta name="author" content="Olamide Simon">
+  <meta name="theme-color" content="#b34410">
+  <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..600&amp;family=Hanken+Grotesk:wght@400..700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+  <link rel="stylesheet" href="css/styles.css">
+  <script>
+    (function () {
+      var theme = null;
+      try { theme = localStorage.getItem('os-theme'); } catch (e) {}
+      if (!theme) theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.classList.add('js');
+    })();
+  </script>
+  <script src="js/main.js" defer></script>
+  <script src="js/planner.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="Olamide Simon, home">
+        <span class="brand__mark" aria-hidden="true">OS</span>
+        <span class="brand__name">Olamide Simon</span>
+      </a>
+      <nav class="nav" id="site-nav" aria-label="Main">
+        <ul class="nav__list">
+          <li><a class="nav__link" href="index.html">Home</a></li>
+          <li><a class="nav__link" href="about.html">About</a></li>
+          <li><a class="nav__link" href="projects.html">Projects</a></li>
+          <li><a class="nav__link" href="planner.html" aria-current="page">Planner</a></li>
+          <li><a class="nav__link" href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-button theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
+        <button class="icon-button menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+          <span class="menu-toggle__bars" aria-hidden="true"><span></span><span></span><span></span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow rise">Academic planner</p>
+        <h1 class="rise delay-1">Stay on top of coursework.</h1>
+        <p class="lead rise delay-2">
+          Add a task for each piece of coursework, tick it off when it's done and delete what you no longer need.
+          Your tasks are saved in this browser, so they're still here next time.
+        </p>
+      </div>
+    </section>
+
+    <section class="section section--tight" aria-label="Planner">
+      <div class="container planner">
+        <aside class="planner__side">
+          <!-- Add a task -->
+          <form class="card" id="task-form" novalidate aria-labelledby="add-task-title">
+            <h2 id="add-task-title">Add a task</h2>
+            <div class="field">
+              <label for="task-title">Task</label>
+              <input id="task-title" name="title" type="text" maxlength="120" placeholder="e.g. Read chapter 4 notes" aria-describedby="task-title-error" required>
+              <p class="field__error" id="task-title-error" aria-live="polite"></p>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="task-course">Course</label>
+                <input id="task-course" name="course" type="text" list="course-options" maxlength="20" placeholder="COS 106">
+                <datalist id="course-options">
+                  <option value="COS 106"></option>
+                  <option value="General"></option>
+                </datalist>
+              </div>
+              <div class="field">
+                <label for="task-due">Due date</label>
+                <input id="task-due" name="due" type="date">
+              </div>
+            </div>
+            <div class="field">
+              <label for="task-priority">Priority</label>
+              <select id="task-priority" name="priority">
+                <option value="high">High</option>
+                <option value="medium" selected>Medium</option>
+                <option value="low">Low</option>
+              </select>
+            </div>
+            <button class="btn" type="submit">Add task</button>
+          </form>
+
+          <!-- Progress -->
+          <section class="card progress-card" aria-labelledby="progress-title">
+            <h2 id="progress-title">Progress</h2>
+            <p class="progress-card__numbers">
+              <span id="done-count">0</span>
+              <small>of <span id="total-count">0</span> done</small>
+            </p>
+            <label class="visually-hidden" for="progress-bar">Tasks completed</label>
+            <progress id="progress-bar" max="100" value="0">0%</progress>
+            <p id="progress-text">Add a task to get started.</p>
+            <p id="overdue-text">Nothing overdue.</p>
+          </section>
+        </aside>
+
+        <div class="planner__main">
+          <div class="planner__toolbar">
+            <h2 id="tasks-title">My tasks</h2>
+            <div class="filters" role="group" aria-label="Show tasks">
+              <button class="chip" type="button" data-task-filter="all" aria-pressed="true">All (<span id="count-all">0</span>)</button>
+              <button class="chip" type="button" data-task-filter="active" aria-pressed="false">Active (<span id="count-active">0</span>)</button>
+              <button class="chip" type="button" data-task-filter="completed" aria-pressed="false">Completed (<span id="count-completed">0</span>)</button>
+            </div>
+          </div>
+          <div class="planner__toolbar">
+            <label class="sort">
+              Sort by
+              <select id="task-sort">
+                <option value="due">Due date</option>
+                <option value="priority">Priority</option>
+                <option value="newest">Newest first</option>
+              </select>
+            </label>
+          </div>
+
+          <!-- Tasks are added here by js/planner.js -->
+          <ul class="task-list" id="task-list" aria-labelledby="tasks-title"></ul>
+          <p class="empty-state" id="empty-state" hidden></p>
+
+          <div class="planner__footer">
+            <span id="remaining-text">0 tasks left to do</span>
+            <button class="btn btn--ghost btn--small" type="button" id="clear-completed">Clear completed</button>
+          </div>
+
+          <h2>Tasks by course</h2>
+          <div class="table-wrap">
+            <table class="table">
+              <caption>Updates as you add, complete and delete tasks</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Course</th>
+                  <th scope="col" class="num">Tasks</th>
+                  <th scope="col" class="num">Completed</th>
+                  <th scope="col" class="num">Remaining</th>
+                </tr>
+              </thead>
+              <tbody id="course-table-body"></tbody>
+              <tfoot id="course-table-foot"></tfoot>
+            </table>
+          </div>
+
+          <noscript><p>The planner needs JavaScript. Please turn it on to add and manage tasks.</p></noscript>
+        </div>
+      </div>
+      <p class="visually-hidden" id="planner-status" role="status" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="brand" href="index.html">
+            <span class="brand__mark" aria-hidden="true">OS</span>
+            <span>Olamide Simon</span>
+          </a>
+          <p class="footer-blurb text-muted">
+            Software Engineering student at MIVA Open University and full-stack developer in Abuja, Nigeria.
+          </p>
+        </div>
+        <nav aria-label="Footer">
+          <h2>Pages</h2>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="planner.html">Planner</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+        <div>
+          <h2>Connect</h2>
+          <ul>
+            <li><a href="mailto:simonadepetoye@gmail.com">Email</a></li>
+            <li><a href="https://www.linkedin.com/in/simon-adepetoye-13265b228/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+            <li><a href="https://github.com/OlamideSimon" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© <span data-year>2025</span> Olamide Simon. All rights reserved.</p>
+        <p>COS 106 term project · MIVA Open University</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

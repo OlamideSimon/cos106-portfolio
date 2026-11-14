@@ -1,0 +1,16 @@
+# Render Blueprint: hosts this folder as a static site (no server, no build step).
+services:
+  - type: web
+    runtime: static
+    name: olamide-cos106-portfolio
+    branch: main
+    buildCommand: echo "No build step. Plain HTML, CSS and JavaScript."
+    staticPublishPath: .
+    pullRequestPreviewsEnabled: false
+    headers:
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=604800
