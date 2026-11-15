@@ -1720,6 +1720,67 @@ textarea:focus {
   }
 }
 
+/* Phones and small tablets: the education table becomes cards */
+@media (max-width: 720px) {
+  /* Five columns don't fit side by side below 720px, so the education table
+     turns each row into a small card: the institution as its heading, then
+     the other cells in a 2 × 2 grid, each labelled from its data-label. */
+  .table--stack,
+  .table--stack caption,
+  .table--stack tbody {
+    display: block;
+    min-width: 0;
+  }
+
+  .table--stack caption {
+    padding-bottom: 1rem;
+  }
+
+  /* The column headings are hidden on screen (each cell has its own label)
+     but stay in the page for screen readers. */
+  .table--stack thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+
+  .table--stack tbody tr {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem 1.25rem;
+    padding: 1.25rem;
+    border-top: 1px solid var(--color-line);
+  }
+
+  .table--stack tbody th,
+  .table--stack tbody td {
+    padding: 0;
+    border: 0;
+  }
+
+  .table--stack tbody th {
+    grid-column: 1 / -1;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 500;
+    line-height: 1.25;
+  }
+
+  .table--stack td::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+}
+
 @media (max-width: 640px) {
   body {
     font-size: 1rem;
