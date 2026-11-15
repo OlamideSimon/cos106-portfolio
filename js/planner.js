@@ -57,25 +57,14 @@ function createId() {
   return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
 }
 
-// Shown the first time someone opens the planner, so it isn't empty.
-function sampleTasks() {
-  const now = Date.now();
-  return [
-    { id: createId(), title: 'Build my COS 106 portfolio website', course: 'COS 106', due: daysFromToday(-1), priority: 'high', done: true, createdAt: now - 4000 },
-    { id: createId(), title: 'Write the COS 106 project report (PDF)', course: 'COS 106', due: daysFromToday(2), priority: 'high', done: false, createdAt: now - 3000 },
-    { id: createId(), title: 'Prepare for the COS 106 project defence', course: 'COS 106', due: daysFromToday(6), priority: 'medium', done: false, createdAt: now - 2000 },
-    { id: createId(), title: "Revise this week's lecture notes", course: 'General', due: daysFromToday(1), priority: 'low', done: false, createdAt: now - 1000 },
-  ];
-}
-
 function loadTasks() {
   try {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
     if (Array.isArray(saved)) return saved;
   } catch (error) {
-    // Nothing saved yet, or the saved data was unreadable: start fresh.
+    // The saved data was unreadable: start fresh.
   }
-  return sampleTasks();
+  return []; // first visit: an empty planner, ready for the first task
 }
 
 function saveTasks() {

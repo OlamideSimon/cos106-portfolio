@@ -1643,7 +1643,9 @@ textarea:focus {
   .about-intro,
   .contact,
   .planner {
-    grid-template-columns: 1fr;
+    /* minmax(0, …) lets the column shrink to the screen. A bare 1fr grows to
+       fit its widest content (the planner's table) and pushes the page sideways. */
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .hero__grid .portrait {
@@ -1746,6 +1748,36 @@ textarea:focus {
 
   .btn-row .btn {
     flex: 1 1 auto;
+  }
+
+  /* The planner's table has only four short columns, so on a phone it fits
+     the screen instead of scrolling sideways inside its box. */
+  .planner .table {
+    min-width: 0;
+  }
+
+  .planner .table caption {
+    padding-inline: 1rem;
+  }
+
+  .planner .table th,
+  .planner .table td {
+    padding: 0.8rem 0.4rem;
+  }
+
+  .planner .table th:first-child,
+  .planner .table td:first-child {
+    padding-left: 1rem;
+  }
+
+  .planner .table th:last-child,
+  .planner .table td:last-child {
+    padding-right: 1rem;
+  }
+
+  .planner .table thead th {
+    font-size: 0.68rem;
+    letter-spacing: 0.02em;
   }
 }
 
