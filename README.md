@@ -11,7 +11,7 @@ It's a responsive, multi-page website that works as my personal academic portfol
 
 | Page | File | What it does |
 |---|---|---|
-| Home | `index.html` | Name and photo, a welcome message, a short biography, a video tour of the site and links to every page |
+| Home | `index.html` | Name and photo, a welcome message, a short biography and links to every page |
 | About Me | `about.html` | Educational background (as a table), career aspirations, technical skills, work experience, hobbies and interests |
 | Projects | `projects.html` | Six live client websites with screenshots, descriptions and links, plus filtering by sector and search |
 | Academic Planner | `planner.html` | Add tasks, mark them as completed and delete them. Tasks are saved in the browser, with progress and a per-course summary table |
@@ -38,7 +38,6 @@ It's a responsive, multi-page website that works as my personal academic portfol
 - **Images:** profile photo, project screenshots, inline SVG icons
 - **Hyperlinks:** navigation, live project sites, email, LinkedIn and GitHub
 - **Lists:** navigation, skills, timeline, hobbies, task list
-- **Multimedia:** the video tour on the home page (`<video>` with a poster image)
 
 ### CSS (`css/styles.css`, one external stylesheet)
 
@@ -71,13 +70,12 @@ cos106-portfolio/
 │   └── styles.css    The one external stylesheet
 ├── js/
 │   ├── main.js       Shared: theme toggle, mobile menu, scroll reveal, footer year
-│   ├── home.js       Greeting, count-up numbers, video fallback
+│   ├── home.js       Greeting and count-up numbers
 │   ├── projects.js   Project data, filtering, search, rendering
 │   ├── planner.js    The task manager
 │   └── contact.js    Form validation
 ├── assets/
-│   ├── images/       Photo, project screenshots, favicon
-│   └── video/        The video tour and its poster
+│   └── images/       Photo, project screenshots, favicon
 └── render.yaml       Hosting settings for Render
 ```
 

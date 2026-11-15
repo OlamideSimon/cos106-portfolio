@@ -721,24 +721,6 @@ a:hover {
   line-height: 1;
 }
 
-.media {
-  margin: 0;
-}
-
-.media video {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  border-radius: var(--radius-lg);
-  background: #000;
-  box-shadow: var(--shadow-card);
-}
-
-.media figcaption {
-  margin-top: 0.9rem;
-  font-size: 0.95rem;
-  color: var(--color-muted);
-}
-
 .quick-link {
   display: flex;
   flex-direction: column;

@@ -2,7 +2,6 @@
    home.js — the homepage only
    1. A greeting that changes with the visitor's time of day
    2. Numbers that count up when the stats scroll into view
-   3. A friendly message if the walkthrough video can't be loaded
    ========================================================================== */
 
 'use strict';
@@ -62,24 +61,4 @@ if (!prefersReducedMotion && 'IntersectionObserver' in window) {
     counter.textContent = '0';
     counterObserver.observe(counter);
   });
-}
-
-/* 3. Walkthrough video fallback ------------------------------------------- */
-
-// If the video file is missing or can't be played, the <source> element
-// fires an "error" event. Instead of leaving a player that does nothing,
-// hide the controls and say so plainly under the poster image.
-const walkthroughVideo = document.getElementById('walkthrough-video');
-const walkthroughSource = walkthroughVideo ? walkthroughVideo.querySelector('source') : null;
-
-function showVideoComingSoon() {
-  walkthroughVideo.removeAttribute('controls');
-  document.getElementById('walkthrough-caption').textContent =
-    'The video tour is on its way. Check back soon.';
-}
-
-if (walkthroughSource) {
-  walkthroughSource.addEventListener('error', showVideoComingSoon);
-  // The error can happen before this script runs, so check the current state too.
-  if (walkthroughVideo.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) showVideoComingSoon();
 }
