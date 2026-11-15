@@ -70,7 +70,7 @@ cos106-portfolio/
 │   └── styles.css    The one external stylesheet
 ├── js/
 │   ├── main.js       Shared: theme toggle, mobile menu, scroll reveal, footer year
-│   ├── home.js       Greeting and count-up numbers
+│   ├── home.js       Time-of-day greeting
 │   ├── projects.js   Project data, filtering, search, rendering
 │   ├── planner.js    The task manager
 │   └── contact.js    Form validation
